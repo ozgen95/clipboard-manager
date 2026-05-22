@@ -3,7 +3,7 @@
   "name": "Clipboard Manager",
   "version": "1.0",
   "description": "An extension which saves everything that user copied",
-  "permissions": ["activeTab", "storage"],
+  "permissions": ["storage"],
   "background": { "service_worker": "background.js" },
   "action": {
     "default_popup": "popup.html",
