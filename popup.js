@@ -21,8 +21,8 @@ function createClipItem(item) {
   textSpan.textContent = item.text;
 
   const timeSpan = document.createElement("span");
-  textSpan.className = "clip-time";
-  textSpan.textContent = timeAgo(item.time);
+  timeSpan.className = "clip-time";
+  timeSpan.textContent = timeAgo(item.time);
 
   div.appendChild(textSpan);
   div.appendChild(timeSpan);
@@ -53,3 +53,10 @@ function timeAgo(timestamp) {
   if (seconds < 86400) return Math.floor(seconds / 3600) + "h ago";
   return Math.floor(seconds / 86400) + "d ago";
 }
+
+document.getElementById("clear-btn").addEventListener("click", function () {
+  chrome.storage.local.set({ history: [] }, function () {
+    container.innerHTML = "";
+    showEmptyState();
+  });
+});

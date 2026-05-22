@@ -1,9 +1,21 @@
-// Listen for copy event
-document.addEventListener("copy", function () {
-  const newText = window.getSelection().toString().trim();
+document.addEventListener("copy", function (e) {
+  let newText = "";
+
+  // Try getting text from the active element (inputs, textareas)
+  const active = document.activeElement;
+  if (active && (active.tagName === "INPUT" || active.tagName === "TEXTAREA")) {
+    newText = active.value.substring(
+      active.selectionStart,
+      active.selectionEnd,
+    );
+  } else {
+    // Regular text selection on the page
+    newText = window.getSelection().toString();
+  }
+
+  newText = newText.trim();
 
   if (newText) {
-    // send the new text to background.js to log it on storage.
     chrome.runtime.sendMessage({
       type: "NEW_COPY",
       text: newText,
